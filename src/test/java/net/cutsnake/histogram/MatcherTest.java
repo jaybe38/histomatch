@@ -1,10 +1,10 @@
 package net.cutsnake.histogram;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import net.cutsnake.histogram.Matcher;
 import net.cutsnake.histogram.TagSet;
 
-import org.hamcrest.AssertThat;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -23,6 +23,9 @@ public class MatcherTest {
         return TAG_SET;
       }
     };
-    assertThat(matcher.match(TAG_SET), is(candidate));
+    matcher.addCandidate(candidate);
+
+    assertThat(matcher.match(TAG_SET).isPresent(), is(true));
+    assertThat(matcher.match(TAG_SET).get(), is(candidate));
   }
 }
